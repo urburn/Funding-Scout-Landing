@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funding Scout — Enginuity</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Primary palette — black & white */
+  --black:#000000;
+  --white:#ffffff;
+
+  /* Page & surface */
+  --bg:#FAFAFA;
+  --surface:#ffffff;
+  --surface-2:#F5F5F5;
+
+  /* Borders */
+  --border:#DAD9D9;
+  --border-light:#E0E0E0;
+
+  /* Gray scale */
+  --g50:#FAFAFA;
+  --g100:#F5F5F5;
+  --g200:#EEEEEE;
+  --g300:#DDDDDD;
+  --g400:#A7A7A7;
+  --g600:#747474;
+  --g800:#393939;
+
+  /* Text hierarchy */
+  --text:#1A1A1A;
+  --text-2:#666666;
+  --text-3:#999999;
+
+  /* Signal / demand colors — design system */
+  --score:#FF8652;            /* score ring + forward signal */
+  --score-bg:#FFF5D2;
+  --score-border:#FF8652;
+  --green-fg:#3B6D11;         /* Forward+Realised fg */
+  --green-accent:#00CA2F;     /* Forward+Realised accent */
+  --green-bg:#D5F3DC;         /* Forward+Realised bg */
+  --amber-fg:#854F0B;         /* Forward signal fg */
+  --blue-fg:#185FA5;          /* Realised fg */
+  --blue-bg:#E6F1FB;          /* Realised bg */
+
+  /* Typography */
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-display:'Outfit','Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--white);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.9rem 2.5rem;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-wordmark{height:22px;width:auto;display:block}
+.nav-pill{font-size:10px;font-weight:500;background:var(--g100);color:var(--g800);padding:2px 8px;border-radius:100px;letter-spacing:.04em}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-link{font-size:13px;color:var(--g600);text-decoration:none;font-weight:400;transition:color .2s}
+.nav-link:hover{color:var(--black)}
+.nav-cta{font-size:13px;font-weight:500;background:var(--black);color:var(--white);padding:.5rem 1.35rem;border-radius:100px;text-decoration:none;transition:opacity .15s}
+.nav-cta:hover{opacity:.8}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7rem 2.5rem 4rem;position:relative;overflow:hidden;text-align:center;background:var(--white)}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-bottom:1.75rem;position:relative;z-index:1}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--black);flex-shrink:0}
+h1{font-family:var(--font-display);font-size:clamp(2.4rem,4.8vw,4.4rem);font-weight:400;line-height:1.08;letter-spacing:-.03em;color:var(--black);margin-bottom:.6rem;max-width:800px;position:relative;z-index:1}
+h1 em{font-style:italic;color:var(--g600)}
+.hero-science{font-size:clamp(.85rem,1.2vw,1rem);color:var(--score);font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.5rem;position:relative;z-index:1}
+.hero-sub{font-size:.975rem;color:var(--text-2);line-height:1.75;font-weight:300;max-width:500px;margin:0 auto 2.25rem;position:relative;z-index:1}
+.hero-actions{display:flex;align-items:center;gap:1rem;justify-content:center;position:relative;z-index:1;flex-wrap:wrap}
+.btn-primary{font-family:var(--font-sans);font-size:14px;font-weight:400;background:var(--black);color:var(--white);padding:.85rem 1.85rem;border-radius:100px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:opacity .15s;white-space:nowrap}
+.btn-primary:hover{opacity:.8}
+.btn-ghost{font-family:var(--font-sans);font-size:13px;color:var(--g600);text-decoration:none;font-weight:400;transition:color .2s;white-space:nowrap}
+.btn-ghost:hover{color:var(--black)}
+
+/* ─── REFRAME ─── */
+.reframe{background:var(--black);padding:3rem 2.5rem;text-align:center}
+.reframe-inner{max-width:700px;margin:0 auto}
+.reframe-line{font-family:var(--font-sans);font-size:clamp(1.2rem,2.2vw,1.75rem);font-weight:500;color:var(--white);line-height:1.45;letter-spacing:-.02em;margin-bottom:.65rem}
+.reframe-line em{font-style:italic;color:var(--score)}
+.reframe-source{font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.03em}
+.reframe-source a{color:rgba(255,255,255,.28);text-decoration:none;border-bottom:0.5px solid rgba(255,255,255,.15)}
+
+/* ─── WHO ─── */
+.who{padding:5rem 2.5rem;background:var(--white)}
+.who-inner{max-width:1040px;margin:0 auto}
+.section-tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);font-weight:500;margin-bottom:1rem;display:block}
+.who-headline{font-family:var(--font-sans);font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:500;letter-spacing:-.02em;line-height:1.15;max-width:680px;margin-bottom:2.75rem;color:var(--text)}
+.who-headline em{font-style:italic;color:var(--g600)}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.who-card{background:var(--white);padding:1.875rem}
+.who-card-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:1.125rem}
+.who-card-title{font-size:15px;font-weight:500;color:var(--black);margin-bottom:.4rem;letter-spacing:-.01em}
+.who-card-desc{font-size:13px;color:var(--text-2);line-height:1.65;font-weight:300}
+.who-card-tag{display:inline-block;font-size:10px;font-weight:500;margin-top:.875rem;padding:2px 9px;border-radius:100px;background:var(--g100);color:var(--g800)}
+
+/* ─── HOW: MAP SCORE ACT ─── */
+.how{background:var(--g50);border-top:1px solid var(--border-light)}
+.how-intro-band{padding:4rem 2.5rem 0}
+.how-intro-inner{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;padding-bottom:3rem;border-bottom:1px solid var(--border-light)}
+.how-headline{font-family:var(--font-sans);font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:500;letter-spacing:-.02em;line-height:1.15;color:var(--text)}
+.how-headline em{font-style:italic;color:var(--g600)}
+.how-intro-text{font-size:.95rem;color:var(--text-2);line-height:1.75;font-weight:300}
+.how-intro-text strong{color:var(--black);font-weight:500}
+
+/* Steps */
+.how-steps{max-width:1040px;margin:0 auto;padding:0 2.5rem}
+.how-step{display:grid;grid-template-columns:80px 1fr auto;gap:2rem;align-items:start;padding:3rem 0;border-bottom:1px solid var(--border-light)}
+.how-step:last-child{border-bottom:none}
+.how-step-num{font-family:var(--font-display);font-size:3.5rem;font-weight:400;color:var(--g300);letter-spacing:-.05em;line-height:1;padding-top:.2rem;flex-shrink:0}
+.how-step-body{padding-top:.35rem}
+.how-step-verb{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-bottom:.5rem;display:block}
+.how-step-act .how-step-verb{color:var(--score)}
+.how-step-title{font-family:var(--font-sans);font-size:clamp(1.2rem,2vw,1.6rem);font-weight:500;color:var(--black);line-height:1.2;letter-spacing:-.02em;margin-bottom:.75rem}
+.how-step-desc{font-size:.9rem;color:var(--text-2);line-height:1.7;font-weight:300;max-width:480px}
+.how-step-output{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;padding-top:.35rem;min-width:160px}
+.how-step-output-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);text-align:right}
+.how-step-output-val{font-size:12px;color:var(--text-2);font-weight:300;text-align:right;line-height:1.4}
+/* Score pill on step 3 */
+.how-step-act{background:transparent}
+.score-pill-row{display:flex;gap:.5rem;justify-content:flex-end;flex-wrap:wrap}
+.score-pill{font-size:10px;font-weight:500;padding:3px 10px;border-radius:100px;white-space:nowrap}
+.pill-strong{background:var(--green-bg);color:var(--green-fg)}
+.pill-mod{background:#FFF5D2;color:var(--amber-fg)}
+.pill-low{background:var(--g100);color:var(--g600)}
+
+/* ─── SCORE CREDIBILITY STRIP ─── */
+.score-strip{background:var(--black);padding:2.5rem 2.5rem}
+.score-strip-inner{max-width:1040px;margin:0 auto}
+.score-strip-head{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:500;margin-bottom:1.75rem}
+.score-strip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:12px;overflow:hidden}
+.score-strip-card{background:#0d0d0d;padding:1.5rem}
+.score-strip-level{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.5rem}
+.score-strip-name{font-size:15px;font-weight:500;color:var(--white);margin-bottom:.25rem;letter-spacing:-.01em}
+.score-strip-name em{font-style:italic;color:var(--score)}
+.score-strip-context{font-size:11px;color:rgba(255,255,255,.3);font-weight:300;line-height:1.5}
+
+/* ─── MID CTA ─── */
+.mid-cta{padding:3.5rem 2.5rem;background:var(--white);border-top:1px solid var(--border-light);text-align:center}
+.mid-cta-inner{max-width:480px;margin:0 auto}
+.mid-cta-headline{font-family:var(--font-sans);font-size:clamp(1.4rem,2.2vw,1.9rem);font-weight:500;letter-spacing:-.02em;line-height:1.2;margin-bottom:.5rem;color:var(--text)}
+.mid-cta-headline em{font-style:italic;color:var(--g600)}
+.mid-cta-sub{font-size:.875rem;color:var(--text-2);font-weight:300;line-height:1.65;margin-bottom:1.5rem}
+.mid-cta-note{font-size:11px;color:var(--g400);margin-top:.75rem}
+
+/* ─── PRODUCT MOCKUP ─── */
+.mockup-section{padding:4.5rem 2.5rem;background:var(--black);border-top:1px solid rgba(255,255,255,.06)}
+.mockup-inner{max-width:1040px;margin:0 auto}
+.mockup-head{margin-bottom:2rem}
+.mockup-head-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);font-weight:500;margin-bottom:.5rem;display:block}
+.mockup-head h2{font-family:var(--font-sans);font-size:clamp(1.4rem,2vw,1.8rem);font-weight:500;color:var(--white);letter-spacing:-.02em;line-height:1.2}
+.mockup-head h2 em{font-style:italic;color:rgba(255,255,255,.45)}
+.dashboard-chrome{background:#0d0d0d;border-radius:14px;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.07)}
+.chrome-bar{background:#1a1a1a;padding:.6rem 1rem;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.06)}
+.chrome-dots{display:flex;gap:6px}
+.chrome-dot-btn{width:10px;height:10px;border-radius:50%}
+.chrome-url{flex:1;margin:0 1rem;background:rgba(255,255,255,.05);border-radius:6px;padding:.28rem .75rem;font-size:11px;color:rgba(255,255,255,.18)}
+.chrome-inner{padding:1.5rem;display:grid;grid-template-columns:200px 1fr;gap:1.5rem;min-height:400px}
+.chrome-sidebar{display:flex;flex-direction:column;gap:.875rem}
+.chrome-asset-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:.875rem}
+.chrome-asset-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.35rem}
+.chrome-asset-name{font-size:11px;color:rgba(255,255,255,.72);font-weight:500;line-height:1.4}
+.chrome-score-box{background:rgba(255,134,82,.08);border:1px solid rgba(255,134,82,.18);border-radius:9px;padding:1rem;text-align:center}
+.chrome-score-num{font-family:var(--font-display);font-size:2.8rem;font-weight:400;color:var(--score);letter-spacing:-.05em;line-height:1}
+.chrome-score-sublabel{font-size:8px;color:rgba(255,255,255,.25);letter-spacing:.08em;text-transform:uppercase;margin-top:.15rem}
+.chrome-score-band{font-size:10px;font-weight:500;color:var(--green-accent);margin:.2rem 0 .6rem}
+.chrome-dim-bars{display:flex;flex-direction:column;gap:.5rem}
+.chrome-dim-row{display:flex;align-items:center;gap:.45rem}
+.chrome-dim-label{font-size:9px;color:rgba(255,255,255,.3);width:60px;flex-shrink:0}
+.chrome-dim-track{flex:1;height:3px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.chrome-dim-fill{height:100%;border-radius:3px}
+.chrome-percentile{margin-top:.75rem;font-size:9px;color:rgba(255,255,255,.22);text-align:center;line-height:1.4}
+.chrome-percentile strong{color:rgba(255,255,255,.5);font-weight:500}
+.chrome-main{display:flex;flex-direction:column;gap:.75rem}
+.chrome-section-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.chrome-cluster-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:.875rem 1rem}
+.chrome-cluster-top{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.4rem}
+.chrome-cluster-rank{font-size:18px;font-weight:500;letter-spacing:-.03em;min-width:28px;line-height:1}
+.chrome-cluster-info{flex:1}
+.chrome-cluster-name{font-size:11px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:.15rem;line-height:1.3}
+.chrome-cluster-meta{font-size:9px;color:rgba(255,255,255,.28);line-height:1.5}
+.chrome-cluster-score{font-size:13px;font-weight:500;flex-shrink:0}
+.chrome-cluster-bar-track{height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.chrome-cluster-bar-fill{height:100%;border-radius:2px}
+.chrome-signal-tags{display:flex;gap:.35rem;margin-top:.35rem;flex-wrap:wrap}
+.chrome-signal-tag{font-size:8px;font-weight:500;padding:2px 5px;border-radius:3px;letter-spacing:.02em}
+.chrome-bottom-line{background:rgba(255,134,82,.06);border:1px solid rgba(255,134,82,.15);border-radius:8px;padding:.875rem 1rem}
+.chrome-bl-label{font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--score);margin-bottom:.3rem;font-weight:600}
+.chrome-bl-text{font-size:10px;color:rgba(255,255,255,.45);line-height:1.55}
+
+/* ─── COMPARISON ─── */
+.comparison{padding:5rem 2.5rem;background:var(--black);border-top:1px solid rgba(255,255,255,.06)}
+.comparison-inner{max-width:1040px;margin:0 auto}
+.comparison-tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--score);font-weight:500;margin-bottom:1.25rem;display:block}
+.comparison-headline{font-family:var(--font-sans);font-size:clamp(1.7rem,2.8vw,2.4rem);color:var(--white);font-weight:500;letter-spacing:-.025em;line-height:1.15;margin-bottom:2.5rem;max-width:480px}
+.comparison-headline em{font-style:italic;color:var(--score)}
+.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.07);border-radius:14px;overflow:hidden}
+.comp-col{padding:2rem}
+.comp-col-before{background:#111}
+.comp-col-after{background:rgba(0,202,47,.05)}
+.comp-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;display:block}
+.comp-label-before{color:rgba(255,255,255,.25)}
+.comp-label-after{color:var(--green-accent)}
+.comp-items{display:flex;flex-direction:column;gap:.875rem}
+.comp-item{display:flex;align-items:flex-start;gap:.75rem;font-size:13px;line-height:1.55;font-weight:300}
+.comp-item-before{color:rgba(255,255,255,.38)}
+.comp-item-after{color:rgba(255,255,255,.8)}
+.comp-bullet{width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:8px}
+.comp-bullet-before{background:rgba(255,255,255,.07);color:rgba(255,255,255,.2)}
+.comp-bullet-after{background:rgba(0,202,47,.15);color:var(--green-fg)}
+
+/* ─── QUOTE ─── */
+.quote-band{padding:3.5rem 2.5rem;background:var(--g100);border-top:1px solid var(--border-light)}
+.quote-inner{max-width:600px;margin:0 auto;text-align:center}
+.quote-text{font-family:var(--font-sans);font-size:clamp(1.05rem,1.8vw,1.35rem);font-style:italic;color:var(--black);line-height:1.65;margin-bottom:1rem;font-weight:400}
+.quote-attr{font-size:12px;color:var(--text-2)}
+.quote-attr strong{color:var(--black);font-weight:500}
+
+/* ─── PRICING ─── */
+.pricing{padding:5rem 2.5rem;background:var(--white);border-top:1px solid var(--border-light)}
+.pricing-inner{max-width:1040px;margin:0 auto}
+.pricing-head{margin-bottom:3rem}
+.pricing-head h2{font-family:var(--font-sans);font-size:clamp(1.7rem,2.8vw,2.4rem);font-weight:500;letter-spacing:-.02em;line-height:1.15;margin-bottom:.5rem;color:var(--text)}
+.pricing-head h2 em{font-style:italic;color:var(--g600)}
+.pricing-head p{font-size:.875rem;color:var(--text-2);font-weight:300}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start}
+.pricing-card{border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.pricing-card-top{padding:1.625rem 1.625rem 1.375rem}
+.pricing-card-name{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-bottom:.875rem}
+.pricing-card-price{font-size:2.6rem;font-weight:500;letter-spacing:-.05em;color:var(--black);line-height:1;margin-bottom:.15rem}
+.pricing-card-price sup{font-size:.95rem;font-weight:400;vertical-align:super}
+.pricing-card-unit{font-size:12px;color:var(--g400);font-weight:300;margin-bottom:.875rem}
+.pricing-card-desc{font-size:12.5px;color:var(--text-2);line-height:1.6;font-weight:300;border-top:1px solid var(--border-light);padding-top:.875rem}
+.pricing-card-cta{padding:1.125rem 1.625rem;border-top:1px solid var(--border-light)}
+.pricing-btn{display:block;text-align:center;font-size:13px;font-weight:500;padding:.7rem;border-radius:100px;text-decoration:none;transition:all .15s}
+.pricing-btn-dark{background:var(--black);color:var(--white)}
+.pricing-btn-dark:hover{opacity:.8}
+.pricing-btn-outline{border:1px solid var(--border);color:var(--black)}
+.pricing-btn-outline:hover{border-color:var(--black)}
+.pricing-card-featured{border-color:var(--black);position:relative}
+.pricing-card-featured .pricing-card-top{background:var(--g100)}
+.pricing-card-featured .pricing-card-name{color:var(--black)}
+.pricing-badge{position:absolute;top:-1px;right:1.375rem;background:var(--black);color:var(--white);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .7rem;border-radius:0 0 7px 7px}
+.pricing-saving{display:inline-block;font-size:10px;font-weight:500;background:var(--g200);color:var(--g800);padding:2px 7px;border-radius:100px;margin-top:.3rem}
+.enterprise-price{font-size:1.9rem;font-weight:500;letter-spacing:-.04em;color:var(--black);line-height:1;margin-bottom:.15rem}
+
+/* ─── MAIN SIGNUP ─── */
+.signup{padding:6rem 2.5rem;background:var(--black);position:relative;overflow:hidden}
+.signup-inner{max-width:480px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.signup-tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--score);font-weight:500;margin-bottom:1.125rem;display:block}
+.signup-headline{font-family:var(--font-display);font-size:clamp(1.9rem,3.5vw,2.7rem);font-weight:400;color:var(--white);letter-spacing:-.025em;line-height:1.1;margin-bottom:.5rem}
+.signup-headline em{font-style:italic;color:var(--score)}
+.signup-sub{font-size:.875rem;color:rgba(255,255,255,.35);line-height:1.7;font-weight:300;margin-bottom:1.875rem}
+.signup-form{display:flex;gap:.5rem;margin:0 auto 1rem}
+.signup-input{flex:1;font-family:var(--font-sans);font-size:13px;padding:.72rem 1.1rem;border:1px solid rgba(255,255,255,.12);border-radius:100px;background:rgba(255,255,255,.05);color:var(--white);outline:none;transition:border-color .2s}
+.signup-input::placeholder{color:rgba(255,255,255,.2)}
+.signup-input:focus{border-color:rgba(255,255,255,.4)}
+.signup-btn{font-family:var(--font-sans);font-size:13px;font-weight:500;background:var(--white);color:var(--black);border:none;padding:.72rem 1.375rem;border-radius:100px;cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.signup-btn:hover{opacity:.85}
+.signup-note{font-size:11px;color:rgba(255,255,255,.16);letter-spacing:.02em}
+
+/* ─── ENGINUITY STORY ─── */
+.story{padding:5rem 2.5rem;background:var(--g50);border-top:1px solid var(--border-light)}
+.story-inner{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.story-headline{font-family:var(--font-sans);font-size:clamp(1.6rem,2.5vw,2.1rem);font-weight:500;letter-spacing:-.025em;line-height:1.2;margin-bottom:1.25rem;color:var(--text)}
+.story-headline em{font-style:italic;color:var(--g600)}
+.story-body{font-size:.9rem;color:var(--text-2);line-height:1.8;font-weight:300;margin-bottom:1.25rem}
+.story-body strong{color:var(--black);font-weight:500}
+.story-mission{font-size:.875rem;color:var(--black);font-weight:500;letter-spacing:.01em;border-left:2px solid var(--black);padding-left:.875rem;line-height:1.5}
+.story-right{display:flex;flex-direction:column;gap:1px}
+.story-card{background:var(--white);border:1px solid var(--border);padding:1.375rem 1.625rem}
+.story-card:first-child{border-radius:12px 12px 0 0}
+.story-card:last-child{border-radius:0 0 12px 12px;border-top:none}
+.story-card+.story-card{border-top:none}
+.story-card-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-bottom:.35rem}
+.story-card-text{font-size:14px;color:var(--black);font-weight:500;letter-spacing:-.01em;line-height:1.35;margin-bottom:.2rem}
+.story-card-sub{font-size:12px;color:var(--text-2);font-weight:300;line-height:1.5}
+
+/* Zero stat inside story */
+.zero-band{background:var(--black);border-radius:12px;padding:2rem 2.25rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;margin-top:1px}
+.zero-number{font-family:var(--font-display);font-size:clamp(4rem,8vw,6.5rem);font-weight:400;color:var(--white);line-height:.9;letter-spacing:-.05em}
+.zero-accent{width:55%;height:2px;background:var(--white);border-radius:2px;margin-top:.5rem;opacity:.25}
+.zero-label{font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--white);font-weight:400;line-height:1.4;margin-bottom:.5rem;letter-spacing:-.01em}
+.zero-label em{font-style:italic;color:var(--score)}
+.zero-sub{font-size:.8rem;color:rgba(255,255,255,.32);line-height:1.65;font-weight:300}
+.zero-sub strong{color:rgba(255,255,255,.58);font-weight:400}
+
+/* ─── COMING SOON ─── */
+.coming{padding:4.5rem 2.5rem;background:var(--white);border-top:1px solid var(--border-light)}
+.coming-inner{max-width:1040px;margin:0 auto}
+.coming-top{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;margin-bottom:2rem;flex-wrap:wrap}
+.coming-headline{font-family:var(--font-sans);font-size:clamp(1.3rem,2vw,1.7rem);font-weight:500;letter-spacing:-.02em;line-height:1.2;margin-top:.4rem;color:var(--text)}
+.coming-headline em{font-style:italic;color:var(--g600)}
+.coming-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.coming-card{background:var(--white);padding:1.625rem 1.875rem}
+.coming-dot-row{display:flex;align-items:center;gap:7px;margin-bottom:.65rem}
+.coming-dot{width:7px;height:7px;border-radius:50%;opacity:.6}
+.coming-label{font-size:10px;font-weight:500;color:var(--g400);letter-spacing:.05em}
+.coming-title{font-size:15px;font-weight:500;color:var(--black);margin-bottom:.35rem;letter-spacing:-.01em}
+.coming-desc{font-size:12.5px;color:var(--text-2);line-height:1.6;font-weight:300}
+.coming-tag{display:inline-block;margin-top:.75rem;font-size:10px;font-weight:500;padding:2px 8px;border-radius:100px}
+.coming-footer{font-size:11px;color:var(--g400);margin-top:1.125rem;line-height:1.6}
+
+/* ─── BACKERS ─── */
+.backers{padding:1.75rem 2.5rem;background:var(--g50);border-top:1px solid var(--border-light)}
+.backers-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.backers-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);font-weight:500;white-space:nowrap}
+.backer{font-size:13px;color:var(--g400);font-weight:400}
+
+/* ─── FOOTER ─── */
+footer{background:var(--black);padding:2.25rem 2.5rem;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;border-top:1px solid rgba(255,255,255,.06)}
+.footer-brand{margin-bottom:.25rem}
+.footer-wordmark{height:20px;width:auto;display:block}
+.footer-tagline{font-size:11px;color:rgba(255,255,255,.22);font-weight:300}
+.footer-reg{font-size:10px;color:rgba(255,255,255,.12);margin-top:.5rem}
+.footer-links{display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center}
+.footer-link{font-size:11px;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
+.footer-link:hover{color:var(--white)}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.28s}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  nav{padding:.875rem 1.25rem}
+  .nav-link,.nav-pill{display:none}
+  .hero{padding:5.5rem 1.25rem 3.5rem}
+  .reframe{padding:2.5rem 1.25rem}
+  .who{padding:3.5rem 1.25rem}
+  .who-grid{grid-template-columns:1fr}
+  .how-intro-band{padding:3rem 1.25rem 0}
+  .how-intro-inner{grid-template-columns:1fr;gap:1.5rem}
+  .how-steps{padding:0 1.25rem}
+  .how-step{grid-template-columns:50px 1fr;gap:1rem}
+  .how-step-output{display:none}
+  .score-strip{padding:2rem 1.25rem}
+  .score-strip-grid{grid-template-columns:1fr}
+  .mid-cta{padding:3rem 1.25rem}
+  .mockup-section{padding:3.5rem 1.25rem}
+  .chrome-inner{grid-template-columns:1fr}
+  .chrome-sidebar{display:none}
+  .comparison{padding:3.5rem 1.25rem}
+  .comparison-grid{grid-template-columns:1fr}
+  .pricing{padding:3.5rem 1.25rem}
+  .pricing-grid{grid-template-columns:1fr}
+  .signup{padding:4.5rem 1.25rem}
+  .signup-form{flex-direction:column}
+  .signup-input,.signup-btn{border-radius:10px;width:100%}
+  .story{padding:3.5rem 1.25rem}
+  .story-inner{grid-template-columns:1fr;gap:2.5rem}
+  .zero-band{grid-template-columns:1fr;gap:1rem;padding:1.5rem}
+  .coming{padding:3.5rem 1.25rem}
+  .coming-grid{grid-template-columns:1fr}
+  footer{padding:2rem 1.25rem;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="logo">
+    <img src="assets/Enginuity_Logomark_Black.png" alt="Enginuity" class="logo-wordmark">
+    <span class="nav-pill">Funding Scout</span>
+  </a>
+  <div class="nav-right">
+    <a href="#how" class="nav-link">How it works</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#signup" class="nav-cta">Find my market →</a>
+  </div>
+</nav>
+
+<!-- ═══ 1. HERO — Emotional hook ═══ -->
+<section class="hero">
+  <div class="hero-eyebrow reveal">
+    <span class="hero-dot"></span>
+    Funding Scout · US Government Market
+  </div>
+  <h1 class="reveal">Your innovation has a market in government. <em>Funding Scout shows you exactly where — and what to do next.</em></h1>
+  <p class="hero-science reveal">The science of finding your market.</p>
+  <p class="hero-sub reveal">Contracts. Grants. Programmes. Across thousands of US government markets — we show you exactly where demand meets your innovation.</p>
+  <div class="hero-actions reveal">
+    <a href="#signup" class="btn-primary">
+      Find my market
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M6.5 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="#who" class="btn-ghost">Is this for me? ↓</a>
+  </div>
+</section>
+
+<!-- ═══ 2. REFRAME — Scale of the opportunity ═══ -->
+<div class="reframe">
+  <div class="reframe-inner reveal">
+    <p class="reframe-line">The US federal government spends trillions annually on contracts, grants and programmes. <em>Most of it is invisible to the innovators best placed to win it.</em></p>
+    <p class="reframe-source">Source: <a href="https://usaspending.gov" target="_blank" rel="noopener">USASpending.gov</a></p>
+  </div>
+</div>
+
+<!-- ═══ 3. WHO — Self-identification ═══ -->
+<section class="who" id="who">
+  <div class="who-inner">
+    <span class="section-tag reveal">Is this you?</span>
+    <h2 class="who-headline reveal">If government should be your customer — as a funder, a buyer, or both — <em>Funding Scout is built for you.</em></h2>
+    <div class="who-grid">
+      <div class="who-card reveal">
+        <div class="who-card-icon" style="background:var(--g100)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2a4 4 0 1 1 0 8A4 4 0 0 1 9 2zM2 16c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#393939" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="who-card-title">Researchers &amp; post-docs</div>
+        <div class="who-card-desc">Know which programmes are actively investing in your area — before you spend weeks on an application that was never going to land.</div>
+        <span class="who-card-tag">Academia</span>
+      </div>
+      <div class="who-card reveal reveal-d1">
+        <div class="who-card-icon" style="background:var(--green-bg)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 14V7l6-4 6 4v7" stroke="#3B6D11" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 14v-4h4v4" stroke="#3B6D11" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="who-card-title">Deep tech founders</div>
+        <div class="who-card-desc">Find where government is already buying what you're building. Contracts first. Grants second. Government as a market, not just a funder.</div>
+        <span class="who-card-tag" style="background:var(--green-bg);color:var(--green-fg)">Startups</span>
+      </div>
+      <div class="who-card reveal reveal-d2">
+        <div class="who-card-icon" style="background:#FAECE7">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#993C1D" stroke-width="1.4"/><path d="M6 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" stroke="#993C1D" stroke-width="1.4"/><path d="M2 8h14" stroke="#993C1D" stroke-width="1.4"/></svg>
+        </div>
+        <div class="who-card-title">Innovation companies</div>
+        <div class="who-card-desc">Identify the highest-value government market for your innovation and pursue it with precision — not guesswork.</div>
+        <span class="who-card-tag" style="background:#FAECE7;color:#993C1D">Enterprise</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ 4. HOW — Map. Score. Act. ═══ -->
+<section class="how" id="how">
+  <div class="how-intro-band">
+    <div class="how-intro-inner">
+      <div>
+        <span class="section-tag reveal">How it works</span>
+        <h2 class="how-headline reveal">Map. Score. Act.<br><em>Minutes, not months.</em></h2>
+      </div>
+      <p class="how-intro-text reveal">We start with demand — <strong>where it exists, where it's emerging, and where it's going</strong> — then surface your highest-priority opportunities across the US government market.</p>
+    </div>
+  </div>
+  <div class="how-steps">
+
+    <!-- STEP 1: MAP -->
+    <div class="how-step reveal">
+      <div>
+        <div class="how-step-num">01</div>
+        <div style="width:32px;height:2px;background:var(--g300);border-radius:2px;margin-top:.4rem"></div>
+      </div>
+      <div class="how-step-body">
+        <span class="how-step-verb">Map</span>
+        <div class="how-step-title">Describe your innovation in plain language.</div>
+        <div class="how-step-desc">Paste your pitch deck, research summary or grant narrative. No patents. No jargon. The model maps it against the entire US government demand landscape.</div>
+      </div>
+      <div class="how-step-output">
+        <span class="how-step-output-label">Output</span>
+        <span class="how-step-output-val">Your innovation<br>mapped to demand</span>
+      </div>
+    </div>
+
+    <!-- STEP 2: SCORE -->
+    <div class="how-step reveal">
+      <div>
+        <div class="how-step-num">02</div>
+        <div style="width:32px;height:2px;background:var(--g300);border-radius:2px;margin-top:.4rem"></div>
+      </div>
+      <div class="how-step-body">
+        <span class="how-step-verb">Score</span>
+        <div class="how-step-title">Rank markets and opportunities by demand strength and relevance to your innovation.</div>
+        <div class="how-step-desc">We show you where demand is strongest today, where it's emerging and where it's heading — including adjacent markets you may never have considered. The same innovation, applied to opportunities you didn't know existed.</div>
+      </div>
+      <div class="how-step-output">
+        <span class="how-step-output-label">Output</span>
+        <span class="how-step-output-val">Your demand<br>signal score</span>
+      </div>
+    </div>
+
+    <!-- STEP 3: ACT -->
+    <div class="how-step how-step-act reveal">
+      <div>
+        <div class="how-step-num" style="color:var(--score);opacity:.5">03</div>
+        <div style="width:32px;height:2px;background:var(--score);border-radius:2px;margin-top:.4rem;opacity:.4"></div>
+      </div>
+      <div class="how-step-body">
+        <span class="how-step-verb">Act</span>
+        <div class="how-step-title">Your highest-priority opportunities. Ranked.</div>
+        <div class="how-step-desc">The most relevant contracts, grants and programmes — within your strongest demand clusters, prioritised by fit. So you focus on the opportunities that matter and stop wasting time on the ones that don't.</div>
+      </div>
+      <div class="how-step-output">
+        <span class="how-step-output-label">Output</span>
+        <span class="how-step-output-val">Your opportunity<br>priority score</span>
+        <div class="score-pill-row" style="margin-top:.5rem">
+          <span class="score-pill pill-strong">Strong &gt;55</span>
+          <span class="score-pill pill-mod">Moderate</span>
+          <span class="score-pill pill-low">Low &lt;40</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 5. SCORE CREDIBILITY STRIP ═══ -->
+<div class="score-strip">
+  <div class="score-strip-inner">
+    <div class="score-strip-head reveal">The science — three scores, one clear picture · <span style="color:rgba(255,255,255,.18)">Patent pending</span></div>
+    <div class="score-strip-grid reveal">
+      <div class="score-strip-card">
+        <div class="score-strip-level">Innovation · Headline score</div>
+        <div class="score-strip-name">Demand Signal Score <em>— your headline number</em></div>
+        <div class="score-strip-context">How strongly government demand aligns with your innovation overall — across 2,197 clusters, drawing on both realised spend and forward signals across 26 years of investment data.</div>
+      </div>
+      <div class="score-strip-card">
+        <div class="score-strip-level">Market · Where to focus</div>
+        <div class="score-strip-name">Demand Cluster Score <em>— where to focus</em></div>
+        <div class="score-strip-context">Ranks your matched demand clusters by depth, momentum and diversity. Highest clusters first — that's where the market signal is strongest.</div>
+      </div>
+      <div class="score-strip-card">
+        <div class="score-strip-level">Opportunity · Your next move</div>
+        <div class="score-strip-name">Opportunity Priority Score <em>— your next move</em></div>
+        <div class="score-strip-context">Ranks every contract and grant within your top clusters. Start with rank 1 — that's where confidence and fit are highest.</div>
+      </div>
+    </div>
+    <!-- Signal type key -->
+    <div class="reveal" style="display:flex;gap:2rem;margin-top:1.5rem;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <span style="font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(0,202,47,.12);color:#00CA2F;letter-spacing:.04em;white-space:nowrap">Forward + Realised</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.3);font-weight:300">Active grants, contracts &amp; confirmed awards — the strongest evidence of sustained demand</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <span style="font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(255,134,82,.15);color:#FF8652;letter-spacing:.04em;white-space:nowrap">Forward</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.3);font-weight:300">Active grants, contracts &amp; procurement notices — intended investment</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <span style="font-size:9px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(24,95,165,.15);color:#185FA5;letter-spacing:.04em;white-space:nowrap">Realised</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.3);font-weight:300">Confirmed, spent awards — validated evidence of where government has already invested</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 7. PRODUCT MOCKUP — What you'll see ═══ -->
+<section class="mockup-section">
+  <div class="mockup-inner">
+    <div class="mockup-head reveal">
+      <span class="mockup-head-label">The product</span>
+      <h2>What your results look like. <em>A real score. Real clusters. A clear bottom line.</em></h2>
+    </div>
+    <div class="reveal">
+      <div class="dashboard-chrome">
+        <div class="chrome-bar">
+          <div class="chrome-dots">
+            <div class="chrome-dot-btn" style="background:#FF5F57"></div>
+            <div class="chrome-dot-btn" style="background:#FFBD2E"></div>
+            <div class="chrome-dot-btn" style="background:#28C840"></div>
+          </div>
+          <div class="chrome-url">app.enginuityai.io / funding-scout / results</div>
+        </div>
+        <div class="chrome-inner">
+          <div class="chrome-sidebar">
+            <div class="chrome-asset-box">
+              <div class="chrome-asset-label">Innovation</div>
+              <div class="chrome-asset-name">Autonomous inspection robotics for confined spaces</div>
+            </div>
+            <div class="chrome-score-box">
+              <div class="chrome-score-num">73</div>
+              <div class="chrome-score-sublabel">Demand Signal Score</div>
+              <div class="chrome-score-band">● Strong</div>
+              <div class="chrome-dim-bars">
+                <div class="chrome-dim-row">
+                  <div class="chrome-dim-label">Depth</div>
+                  <div class="chrome-dim-track"><div class="chrome-dim-fill" style="width:68%;background:#FF8652"></div></div>
+                </div>
+                <div class="chrome-dim-row">
+                  <div class="chrome-dim-label">Momentum</div>
+                  <div class="chrome-dim-track"><div class="chrome-dim-fill" style="width:81%;background:#00CA2F"></div></div>
+                </div>
+                <div class="chrome-dim-row">
+                  <div class="chrome-dim-label">Diversity</div>
+                  <div class="chrome-dim-track"><div class="chrome-dim-fill" style="width:55%;background:#A7A7A7"></div></div>
+                </div>
+              </div>
+              <div class="chrome-percentile">Ranked in <strong>top 18%</strong> of all scored innovations</div>
+            </div>
+          </div>
+          <div class="chrome-main">
+            <div class="chrome-section-label">Top demand clusters — ranked by cluster score</div>
+            <div class="chrome-cluster-card">
+              <div class="chrome-cluster-top">
+                <div class="chrome-cluster-rank" style="color:#FF8652">#1</div>
+                <div class="chrome-cluster-info">
+                  <div class="chrome-cluster-name">Autonomous Systems for Hazardous Environment Operations</div>
+                  <div class="chrome-cluster-meta">DoD · DARPA · Army DEVCOM · 847 awards · Median $420k · 26yr record</div>
+                </div>
+                <div class="chrome-cluster-score" style="color:#FF8652">89</div>
+              </div>
+              <div class="chrome-cluster-bar-track"><div class="chrome-cluster-bar-fill" style="width:89%;background:#FF8652"></div></div>
+              <div class="chrome-signal-tags">
+                <span class="chrome-signal-tag" style="background:rgba(0,202,47,.12);color:#00CA2F">Forward + Realised</span>
+                <span class="chrome-signal-tag" style="background:rgba(0,202,47,.08);color:#3B6D11">↑ +34% momentum</span>
+              </div>
+            </div>
+            <div class="chrome-cluster-card">
+              <div class="chrome-cluster-top">
+                <div class="chrome-cluster-rank" style="color:rgba(255,255,255,.32)">#2</div>
+                <div class="chrome-cluster-info">
+                  <div class="chrome-cluster-name">Inspection &amp; Structural Monitoring Technologies</div>
+                  <div class="chrome-cluster-meta">DOE · DHS · 531 awards · Median $280k · 22yr record</div>
+                </div>
+                <div class="chrome-cluster-score" style="color:rgba(255,134,82,.6)">74</div>
+              </div>
+              <div class="chrome-cluster-bar-track"><div class="chrome-cluster-bar-fill" style="width:74%;background:rgba(255,134,82,.35)"></div></div>
+              <div class="chrome-signal-tags">
+                <span class="chrome-signal-tag" style="background:rgba(0,202,47,.1);color:rgba(0,202,47,.7)">Forward + Realised</span>
+                <span class="chrome-signal-tag" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.32)">↑ +18% momentum</span>
+              </div>
+            </div>
+            <div class="chrome-cluster-card">
+              <div class="chrome-cluster-top">
+                <div class="chrome-cluster-rank" style="color:rgba(255,255,255,.2)">#3</div>
+                <div class="chrome-cluster-info">
+                  <div class="chrome-cluster-name">Construction Robotics &amp; Infrastructure Automation</div>
+                  <div class="chrome-cluster-meta">NIST · DOT · 312 awards · Median $195k · 18yr record</div>
+                </div>
+                <div class="chrome-cluster-score" style="color:rgba(255,255,255,.35)">61</div>
+              </div>
+              <div class="chrome-cluster-bar-track"><div class="chrome-cluster-bar-fill" style="width:61%;background:rgba(255,255,255,.18)"></div></div>
+              <div class="chrome-signal-tags">
+                <span class="chrome-signal-tag" style="background:rgba(24,95,165,.15);color:#185FA5">Realised</span>
+                <span class="chrome-signal-tag" style="background:rgba(255,255,255,.05);color:rgba(255,255,255,.28)">→ stable</span>
+              </div>
+            </div>
+            <div class="chrome-bottom-line">
+              <div class="chrome-bl-label">Bottom line for this innovation</div>
+              <div class="chrome-bl-text">Strong forward signal in autonomous hazardous environment operations. DoD momentum accelerating — priority cluster for SBIR Phase I. Target DARPA BTO and Army DEVCOM in next application window. 12 ranked opportunities identified within top 2 clusters.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8. BEFORE / AFTER — Seal the deal ═══ -->
+<section class="comparison">
+  <div class="comparison-inner">
+    <span class="comparison-tag reveal">The difference</span>
+    <h2 class="comparison-headline reveal">From weeks of searching<br>to your next move <em>in minutes.</em></h2>
+    <div class="comparison-grid reveal">
+      <div class="comp-col comp-col-before">
+        <span class="comp-label comp-label-before">Without Funding Scout</span>
+        <div class="comp-items">
+          <div class="comp-item comp-item-before"><div class="comp-bullet comp-bullet-before">✕</div>Days scanning grants.gov, SAM.gov and SBIR databases — no clear sense of fit</div>
+          <div class="comp-item comp-item-before"><div class="comp-bullet comp-bullet-before">✕</div>Keyword search returning hundreds of irrelevant results. No demand signal.</div>
+          <div class="comp-item comp-item-before"><div class="comp-bullet comp-bullet-before">✕</div>No way to know if a programme is growing, shrinking or already saturated</div>
+          <div class="comp-item comp-item-before"><div class="comp-bullet comp-bullet-before">✕</div>Applications written blind — no evidence of actual demand behind them</div>
+        </div>
+      </div>
+      <div class="comp-col comp-col-after">
+        <span class="comp-label comp-label-after">With Funding Scout</span>
+        <div class="comp-items">
+          <div class="comp-item comp-item-after"><div class="comp-bullet comp-bullet-after">✓</div>Your innovation scored against 2,197 demand clusters — in minutes</div>
+          <div class="comp-item comp-item-after"><div class="comp-bullet comp-bullet-after">✓</div>Highest-fit contracts and grants ranked for your specific innovation</div>
+          <div class="comp-item comp-item-after"><div class="comp-bullet comp-bullet-after">✓</div>Realised spend and forward signals — a complete picture of where demand has been and where it's heading</div>
+          <div class="comp-item comp-item-after"><div class="comp-bullet comp-bullet-after">✓</div>A clear bottom line — apply with confidence, not hope</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 9. QUOTE — Social proof ═══ -->
+<div class="quote-band">
+  <div class="quote-inner reveal">
+    <p class="quote-text">"The ability to automatically identify government funds based upon existing research capabilities is amazing!"</p>
+    <p class="quote-attr"><strong>Geoffrey White</strong> · Advanced Construction Robotics</p>
+  </div>
+</div>
+
+<!-- ═══ 10. PRICING — Remove the final barrier ═══ -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-head reveal">
+      <span class="section-tag">Pricing</span>
+      <h2><em>Pay for what you use.</em> Nothing more.</h2>
+      <p>One score = one innovation fully mapped against 2,197 demand clusters. Start with one. Scale when ready.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-card-top">
+          <div class="pricing-card-name">Single score</div>
+          <div class="pricing-card-price"><sup>£</sup>9<span style="font-size:1.35rem">.99</span></div>
+          <div class="pricing-card-unit">per innovation scored</div>
+          <div class="pricing-card-desc">One innovation. Full demand signal score, ranked cluster report, dimension breakdown and bottom-line recommendation.</div>
+        </div>
+        <div class="pricing-card-cta"><a href="#signup" class="pricing-btn pricing-btn-outline">Find my market</a></div>
+      </div>
+      <div class="pricing-card pricing-card-featured reveal reveal-d1">
+        <div class="pricing-badge">Best value</div>
+        <div class="pricing-card-top">
+          <div class="pricing-card-name">Bundle</div>
+          <div class="pricing-card-price"><sup>£</sup>39<span style="font-size:1.35rem">.99</span></div>
+          <div class="pricing-card-unit">for 5 innovation scores</div>
+          <div class="pricing-saving">Save £10 vs single</div>
+          <div class="pricing-card-desc" style="margin-top:.875rem">Score five innovations across your portfolio. Ideal for research groups, startup studios or TTOs comparing assets and setting priorities.</div>
+        </div>
+        <div class="pricing-card-cta" style="border-color:var(--border-light)"><a href="#signup" class="pricing-btn pricing-btn-dark">Buy a bundle</a></div>
+      </div>
+      <div class="pricing-card reveal reveal-d2">
+        <div class="pricing-card-top">
+          <div class="pricing-card-name">Enterprise</div>
+          <div class="enterprise-price">Custom</div>
+          <div class="pricing-card-unit">tailored to your portfolio</div>
+          <div class="pricing-card-desc">For institutions, accelerators and TTOs with large innovation portfolios. Team accounts, custom access and dedicated onboarding.</div>
+        </div>
+        <div class="pricing-card-cta"><a href="mailto:richard@enginuityai.io" class="pricing-btn pricing-btn-outline">Get in touch</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11. MAIN SIGNUP ═══ -->
+<section class="signup" id="signup">
+  <div class="signup-inner">
+    <span class="signup-tag">Start now</span>
+    <h2 class="signup-headline">Find your market.<br><em>Start today.</em></h2>
+    <p class="signup-sub">Know exactly where government demand meets your innovation — in minutes.</p>
+    <form class="signup-form" onsubmit="handleSignup(event)">
+      <input class="signup-input" type="email" placeholder="Your work email" required id="email-input"/>
+      <button class="signup-btn" type="submit">Find my market</button>
+    </form>
+    <p class="signup-note" id="signup-note">US Government data · No credit card required to get started</p>
+  </div>
+</section>
+
+<!-- ═══ 12. ENGINUITY — Who we are and why ═══ -->
+<section class="story">
+  <div class="story-inner">
+    <div class="story-left reveal">
+      <span class="section-tag">About Enginuity</span>
+      <h2 class="story-headline">Building the world's first <em>Market Demand System for IP.</em></h2>
+      <p class="story-body">Over 95% of IP is never used, commercialised or applied. Billions in R&amp;D investment — and thousands of breakthroughs — going nowhere. <strong>Not a supply problem. A demand problem.</strong> The connection between what exists and where it is needed remains broken.</p>
+      <p class="story-body">Enginuity is building the intelligence layer that sits between supply and demand — and makes the opportunity legible, credible and actionable. Funding Scout is the first signal we've validated. It won't be the last.</p>
+      <div style="margin-top:1.5rem;padding:1.25rem 1.5rem;border-left:2px solid var(--black);background:var(--g100);border-radius:0 8px 8px 0">
+        <div style="font-family:var(--font-sans);font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:500;color:var(--black);letter-spacing:-.02em;line-height:1.3;margin-bottom:.3rem">Ignite Innovation.</div>
+        <div style="font-size:.875rem;color:var(--text-2);font-weight:300">Help ideas move from invention to impact.</div>
+      </div>
+      <div style="display:flex;gap:.875rem;margin-top:1.75rem;flex-wrap:wrap">
+        <a href="mailto:richard@enginuityai.io" class="btn-primary" style="font-size:13px;padding:.7rem 1.5rem">Get in touch
+          <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M6.5 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#coming" style="font-size:13px;font-weight:400;color:var(--text-2);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .2s" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#666'">See what's coming ↓</a>
+      </div>
+    </div>
+    <div class="story-right reveal reveal-d1">
+      <div class="story-card">
+        <div class="story-card-label">Mission</div>
+        <div class="story-card-text">Ignite Innovation.</div>
+        <div class="story-card-sub">Help ideas move from invention to impact.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-card-label">What we're building</div>
+        <div class="story-card-text">The Market Demand System for IP.</div>
+        <div class="story-card-sub">The intelligence layer connecting supply to demand — making every innovation opportunity legible, credible and actionable.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-card-label">Funding Scout</div>
+        <div class="story-card-text">The first signal. The first drop.</div>
+        <div class="story-card-sub">Public sector demand — validated, scored and ranked for your innovation. The first dimension in the Opportunity Score.</div>
+      </div>
+      <div class="zero-band">
+        <div>
+          <div class="zero-number">0</div>
+          <div class="zero-accent"></div>
+        </div>
+        <div>
+          <div class="zero-label">Platforms connecting IP to <em>evidenced market demand.</em> Until now.</div>
+          <div class="zero-sub"><strong>None connect what you've built to where demand actually exists.</strong> We built that connection — and Funding Scout is where it starts.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 13. COMING SOON — The bigger picture ═══ -->
+<section class="coming" id="coming">
+  <div class="coming-inner">
+    <div class="coming-top reveal">
+      <div>
+        <span class="section-tag">The Market Demand System for IP — what's coming next</span>
+        <h2 class="coming-headline">Funding Scout is the first drop.<br><em>The system is just getting started.</em></h2>
+      </div>
+    </div>
+    <div class="coming-grid reveal">
+      <div class="coming-card">
+        <div class="coming-dot-row">
+          <div class="coming-dot" style="background:var(--black)"></div>
+          <span class="coming-label">Funding Scout · EU</span>
+        </div>
+        <div class="coming-title">European funding signals</div>
+        <div class="coming-desc">The same demand intelligence applied to Horizon Europe, European Commission and national programmes. Same science — a much bigger opportunity landscape.</div>
+        <span class="coming-tag" style="background:var(--g100);color:var(--g800)">Coming soon</span>
+      </div>
+      <div class="coming-card">
+        <div class="coming-dot-row">
+          <div class="coming-dot" style="background:var(--green-accent)"></div>
+          <span class="coming-label">Innovation Scout · Summer 2026</span>
+        </div>
+        <div class="coming-title">Know your competitive position</div>
+        <div class="coming-desc">Before you build further. Before you file. Before you pitch. Map your innovation landscape — understand your differentiation and where your edge is strongest.</div>
+        <span class="coming-tag" style="background:var(--green-bg);color:var(--green-fg)">Launching Summer 2026</span>
+      </div>
+      <div class="coming-card">
+        <div class="coming-dot-row">
+          <div class="coming-dot" style="background:var(--score)"></div>
+          <span class="coming-label">Investment Scout · Summer 2026</span>
+        </div>
+        <div class="coming-title">Where is private capital flowing in your space?</div>
+        <div class="coming-desc">The same demand-first methodology applied to private markets. We map where VC, PE and M&amp;A activity is already concentrated — then score your innovation against it. Know where private capital demand is strongest before you pitch.</div>
+        <span class="coming-tag" style="background:var(--score-bg);color:var(--amber-fg)">Launching Summer 2026</span>
+      </div>
+    </div>
+    <p class="coming-footer reveal">Every product feeds the same demand system. The more you use, the richer your intelligence becomes. <strong style="color:var(--black)">Sign up now to be first in line.</strong></p>
+  </div>
+</section>
+
+<!-- ═══ BACKERS ═══ -->
+<div class="backers">
+  <div class="backers-inner">
+    <span class="backers-label">Supported by</span>
+    <span class="backer">Fuel Ventures</span>
+    <span class="backer">Symvan Capital</span>
+    <span class="backer">Cambridge Judge Business School</span>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div>
+    <div class="footer-brand">
+      <img src="assets/Enginuity_Logomark_White.png" alt="Enginuity" class="footer-wordmark">
+    </div>
+    <div class="footer-tagline">The Market Demand System for IP.</div>
+    <div class="footer-reg">EnginuityAI Ltd · Reg. No. 15668054 · England &amp; Wales · enginuityai.io · Demand model patent pending</div>
+  </div>
+  <div class="footer-links">
+    <a href="#" class="footer-link">Privacy policy</a>
+    <a href="#" class="footer-link">Terms of use</a>
+    <a href="#" class="footer-link">Acceptable use</a>
+    <a href="#" class="footer-link">Cookie policy</a>
+  </div>
+</footer>
+
+<script>
+function handleSignup(e){
+  e.preventDefault();
+  const note=document.getElementById('signup-note');
+  note.textContent="You're on the list — we'll be in touch shortly.";
+  note.style.color='#FF8652';
+  document.getElementById('email-input').value='';
+}
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
