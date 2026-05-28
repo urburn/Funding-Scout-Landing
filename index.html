@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
   <meta charset="UTF-8">
@@ -1917,12 +1917,12 @@
         $0</div>
       <div
         style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-top:.35rem">
-        US federal contracts, grants &amp; programmes · annual spend</div>
+        US federal contracts, grants &amp; programs · annual spend</div>
     </div>
     <h1 class="reveal" style="font-size:clamp(3rem,6vw,5.5rem);margin-bottom:.75rem">Your innovation has a market in
       government funding.<br><em style="font-size:clamp(1.8rem,3.5vw,3rem)">Funding Scout pinpoints it.</em></h1>
     <p class="hero-science reveal">The science of finding your market.</p>
-    <p class="hero-sub reveal">Contracts. Grants. Programmes. Across thousands of US government markets — we show you
+    <p class="hero-sub reveal">Contracts. Grants. Programs. Across thousands of US government markets — we show you
       exactly where demand meets your innovation.</p>
     <div class="hero-actions reveal">
       <a href="#signup" class="btn-primary">
@@ -1939,7 +1939,7 @@
   <!-- ═══ 2. REFRAME — Scale of the opportunity ═══ -->
   <div class="reframe">
     <div class="reframe-inner reveal">
-      <p class="reframe-line">The US federal government spends trillions annually on contracts, grants and programmes.
+      <p class="reframe-line">The US federal government spends trillions annually on contracts, grants and programs.
         <em>Most of it is invisible to the innovators best placed to win it.</em>
       </p>
       <p class="reframe-source">Source: <a href="https://usaspending.gov" target="_blank"
@@ -1963,7 +1963,7 @@
             </svg>
           </div>
           <div class="who-card-title">Researchers &amp; post-docs</div>
-          <div class="who-card-desc">Know which programmes are actively investing in your area — before you spend weeks
+          <div class="who-card-desc">Know which programs are actively investing in your area — before you spend weeks
             on an application that was never going to land.</div>
           <span class="who-card-tag">Academia</span>
         </div>
@@ -2061,7 +2061,7 @@
         <div class="how-step-body">
           <span class="how-step-verb">Act</span>
           <div class="how-step-title">Your highest-priority opportunities. Ranked.</div>
-          <div class="how-step-desc">The most relevant contracts, grants and programmes — within your strongest demand
+          <div class="how-step-desc">The most relevant contracts, grants and programs — within your strongest demand
             clusters, prioritised by fit. So you focus on the opportunities that matter and stop wasting time on the
             ones that don't.</div>
         </div>
@@ -2269,7 +2269,7 @@
               results. No demand signal.
             </div>
             <div class="comp-item comp-item-before">
-              <div class="comp-bullet comp-bullet-before">✕</div>No way to know if a programme is growing, shrinking or
+              <div class="comp-bullet comp-bullet-before">✕</div>No way to know if a program is growing, shrinking or
               already saturated
             </div>
             <div class="comp-item comp-item-before">
@@ -2458,7 +2458,7 @@
           </div>
           <div class="coming-title">European funding signals</div>
           <div class="coming-desc">The same demand intelligence applied to Horizon Europe, European Commission and
-            national programmes. Same science — a much bigger opportunity landscape.</div>
+            national programs. Same science — a much bigger opportunity landscape.</div>
           <span class="coming-tag" style="background:var(--g100);color:var(--g800)">Coming soon</span>
         </div>
         <div class="coming-card">
@@ -2550,24 +2550,24 @@
         headers: { 'Accept': 'application/json' },
         body: new FormData(form)
       })
-      .then(function(res) {
-        if (res.ok) {
-          note.textContent = "You're on the list — we'll be in touch shortly.";
-          note.style.color = '#FF8652';
-          document.getElementById('email-input').value = '';
-        } else {
+        .then(function (res) {
+          if (res.ok) {
+            note.textContent = "You're on the list — we'll be in touch shortly.";
+            note.style.color = '#FF8652';
+            document.getElementById('email-input').value = '';
+          } else {
+            note.textContent = 'Something went wrong — please try again.';
+            note.style.color = '#FF5F57';
+          }
+        })
+        .catch(function () {
           note.textContent = 'Something went wrong — please try again.';
           note.style.color = '#FF5F57';
-        }
-      })
-      .catch(function() {
-        note.textContent = 'Something went wrong — please try again.';
-        note.style.color = '#FF5F57';
-      })
-      .finally(function() {
-        btn.disabled = false;
-        btn.textContent = 'Find my market';
-      });
+        })
+        .finally(function () {
+          btn.disabled = false;
+          btn.textContent = 'Find my market';
+        });
     }
 
     // Hero counter — $50M increments up to $4.5T
